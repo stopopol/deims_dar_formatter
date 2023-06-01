@@ -60,7 +60,7 @@ class DeimsDarFormatter extends FormatterBase {
 			if ($data) {
 				$data = json_decode($data, TRUE);
 				if (intval($data["numFound"])>0) {
-					$output = "<br>There is a total of " . $data["numFound"] . " datasets available on the eLTER Digital Asset Register (DAR). <a href='" . $url . "'>Click here to get an overview of these datasets.</a><br>";
+					$output = "<br>There is a total of " . $data["numFound"] . " datasets for this site available on the eLTER Digital Asset Register (DAR). <a href='" . $url . "'>Click here to get an overview of these datasets.</a><br>";
 				}
 				else {
 					// need to return empty array for Drupal to realise the field is empty without throwing an error
