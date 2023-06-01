@@ -50,22 +50,21 @@ class DeimsDarFormatter extends FormatterBase {
 				$response = \Drupal::httpClient()->get($url."&format=json", array('headers' => array('Accept' => 'text/plain')));
 				$data = (string) $response->getBody();
 				if (empty($data)) {
-				  return FALSE;
+					// potentially add an error message here in case data can't be fetched from DAR
+					return array();
 				}
 			}
 			catch (RequestException $e) {
 				return array();
 			}
 			
-			if ($data) {
-				$data = json_decode($data, TRUE);
-				if (intval($data["numFound"])>0) {
-					$output = "<br>There is a total of " . $data["numFound"] . " datasets for this site available on the eLTER Digital Asset Register (DAR). <a href='" . $url . "'>Click here to get an overview of these datasets.</a><br>";
-				}
-				else {
-					// need to return empty array for Drupal to realise the field is empty without throwing an error
-					return array();
-				}
+			$data = json_decode($data, TRUE);
+			if (intval($data["numFound"])>0) {
+				$output = "<br>There is a total of " . $data["numFound"] . " datasets for this site available on the eLTER Digital Asset Register (DAR). <a href='" . $url . "'>Click here to get an overview of these datasets.</a><br>";
+			}
+			else {
+				// need to return empty array for Drupal to realise the field is empty without throwing an error
+				return array();
 			}
 			
 			$elements[$delta] = [
