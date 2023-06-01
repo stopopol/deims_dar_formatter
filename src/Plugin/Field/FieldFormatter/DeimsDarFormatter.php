@@ -4,8 +4,6 @@ namespace Drupal\deims_dar_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 
 /**
  * Plugin implementation of the 'DeimsDarFormatter' formatter.
@@ -62,7 +60,7 @@ class DeimsDarFormatter extends FormatterBase {
 			if ($data) {
 				$data = json_decode($data, TRUE);
 				if (intval($data["numFound"])>0) {
-					$output = "There is a total of " . $data["numFound"] . " datasets available on the eLTER Digital Asset Register (DAR). <a href='" . $url . "'>Click here to get an overview of these datasets.</a>";
+					$output = "<br>There is a total of " . $data["numFound"] . " datasets available on the eLTER Digital Asset Register (DAR). <a href='" . $url . "'>Click here to get an overview of these datasets.</a><br>";
 				}
 				else {
 					// need to return empty array for Drupal to realise the field is empty without throwing an error
