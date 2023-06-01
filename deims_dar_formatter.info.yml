@@ -1,0 +1,7 @@
+name: DEIMS-SDR DAR Formatter
+description: Provides a formatter for providing the links to the datasets of a site on DAR
+package: DEIMS-SDR
+type: module
+version: 8.x-1.0
+core: 8.x
+core_version_requirement: ^8 || ^9
