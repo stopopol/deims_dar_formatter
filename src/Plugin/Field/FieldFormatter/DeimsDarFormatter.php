@@ -50,12 +50,12 @@ class DeimsDarFormatter extends FormatterBase {
 				$response = \Drupal::httpClient()->get($url."&format=json", array('headers' => array('Accept' => 'text/plain')));
 				$data = (string) $response->getBody();
 				if (empty($data)) {
-					// potentially add an error message here in case data can't be fetched from DAR
-					return array();
+					// potentially add a more meaningful error message here in case data can't be fetched from DAR
+					\Drupal::logger('deims_dar_formatter')->notice(serialize(array()));
 				}
 			}
 			catch (RequestException $e) {
-				return array();
+				\Drupal::logger('deims_dar_formatter')->notice(serialize(array()));
 			}
 			
 			$data = json_decode($data, TRUE);
