@@ -4,6 +4,8 @@ namespace Drupal\deims_dar_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Plugin implementation of the 'DeimsDarFormatter' formatter.
@@ -54,8 +56,10 @@ class DeimsDarFormatter extends FormatterBase {
 					\Drupal::logger('deims_dar_formatter')->notice(serialize(array()));
 				}
 			}
-			catch (RequestException $e) {
-				\Drupal::logger('deims_dar_formatter')->notice(serialize(array()));
+			catch (GuzzleException $e) {
+				if ($e->hasResponse()) {
+                                        $response = $e->getResponse()->getBody()->getContents();
+                                }
 			}
 			
 			$data = json_decode($data, TRUE);
