@@ -59,6 +59,7 @@ class DeimsDarFormatter extends FormatterBase {
 			catch (GuzzleException $e) {
 				if ($e->hasResponse()) {
                                         $response = $e->getResponse()->getBody()->getContents();
+					\Drupal::logger('deims_dar_formatter')->notice(serialize($response));
                                 }
 			}
 			
