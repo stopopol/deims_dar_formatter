@@ -55,15 +55,18 @@ class DeimsDarFormatter extends FormatterBase {
 					// potentially add a more meaningful error message here in case data can't be fetched from DAR
 					\Drupal::logger('deims_dar_formatter')->notice(serialize(array()));
 				}
+				else {
+                                        $data = json_decode($data, TRUE);
+                                }
 			}
 			catch (GuzzleException $e) {
 				if ($e->hasResponse()) {
                                         $response = $e->getResponse()->getBody()->getContents();
 					\Drupal::logger('deims_dar_formatter')->notice(serialize($response));
                                 }
+				return array();
 			}
 			
-			$data = json_decode($data, TRUE);
 			if (intval($data["numFound"])>0) {
 				$output = "There is a total of " . $data["numFound"] . " datasets for this site available on the eLTER Digital Asset Register (DAR). <a href='" . $url . "'>Click here to get an overview of these datasets.</a><br>";
 			}
