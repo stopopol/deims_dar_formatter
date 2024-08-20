@@ -1,0 +1,6 @@
+{
+    "name": "stopopol/deims_dar_formatter",
+    "description": "Field Formatter for the deims.id field to show available datasets on the DAR",
+    "type": "drupal-custom-module",
+    "homepage": "https://github.com/stopopol/deims_dar_formatter"
+}
