@@ -50,7 +50,7 @@ class DeimsDarFormatter extends FormatterBase {
 			$landing_page_url = "https://dar.elter-ri.eu/search/?q=&l=list&p=1&s=10&sort=newest&f=metadata_siteReferences_siteID:" . $item->value;
 			
 			try {
-				$response = \Drupal::httpClient()->get($api_url, array('headers' => array('Accept' => ' application/json')));
+				$response = \Drupal::httpClient()->get($api_url, array('headers' => array('Accept' => 'application/json')));
 				$data = (string) $response->getBody();
 				if (empty($data)) {
 					// potentially add a more meaningful error message here in case data can't be fetched from DAR
@@ -64,12 +64,33 @@ class DeimsDarFormatter extends FormatterBase {
 				if ($e->hasResponse()) {
                     $response = $e->getResponse()->getBody()->getContents();
 					\Drupal::logger('deims_dar_formatter')->notice(serialize($response));
-                                }
+                }
 				return array();
 			}
 			
 			if (intval($data["hits"]["total"])>0) {
-				$output = "There is a total of " . $data["hits"]["total"] . " datasets for this site available on the eLTER Digital Asset Register (DAR). <a href='" . $landing_page_url . "'>Click here to get an overview of these datasets.</a><br>";
+				
+				$maxIterations = 4;
+				$count = 0;
+				$dataset_list = "<ul>";
+
+				foreach ($data["hits"] as $key => $value) {
+					if ($count >= $maxIterations) {
+						break;
+					}
+					try {
+						
+						$url = $value["links"]["self_html"];
+						$title = $value["metadata"]["titles"]["titleText"];
+						$dataset_list .= "<li><a href='$url'>$title</a></li>";
+					}
+					$count++;
+				
+				$dataset_list .= "</ul>";
+				
+				$output = "There is a total of " . $data["hits"]["total"] . " datasets for this site available on the eLTER Digital Asset Register (DAR)";
+				$output .= "<a href='$landing_page_url'>Click here to get an overview of these datasets.</a><br>";
+
 			}
 			else {
 				// need to return empty array for Drupal to realise the field is empty without throwing an error
