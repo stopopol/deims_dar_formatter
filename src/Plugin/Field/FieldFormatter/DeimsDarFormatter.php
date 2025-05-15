@@ -70,27 +70,29 @@ class DeimsDarFormatter extends FormatterBase {
 			
 			if (intval($data["hits"]["total"])>0) {
 				
-				$maxIterations = 4;
+				$maxIterations = 5;
 				$count = 0;
 				$dataset_list = "<ul>";
 
-				foreach ($data["hits"] as $key => $value) {
+				foreach ($data["hits"]["hits"] as $key => $value) {
 					if ($count >= $maxIterations) {
 						break;
 					}
-					try {
-						
-						$url = $value["links"]["self_html"];
-						$title = $value["metadata"]["titles"]["titleText"];
-						$dataset_list .= "<li><a href='$url'>$title</a></li>";
-					}
 					$count++;
 				
+					$url = htmlspecialchars($value["links"]["self_html"] ?? '#', ENT_QUOTES, 'UTF-8');
+					$title = htmlspecialchars($value["metadata"]["titles"][0]["titleText"] ?? 'Untitled', ENT_QUOTES, 'UTF-8');
+					$dataset_list .= "<li><a href='$url'>$title</a></li>";
+					
 				}
 				
 				$dataset_list .= "</ul>";
-				$output = "There is a total of " . $data["hits"]["total"] . " datasets for this site available on the eLTER Digital Asset Register (DAR)";
-				$output .= "<a href='$landing_page_url'>Click here to get an overview of these datasets.</a><br>";
+				$output = "There is a total of " . $data["hits"]["total"] . " datasets for this site available on the eLTER Digital Asset Register (DAR).";
+				if ($count>0) {
+					$output .= " The latest ones include: ";
+					$output .= $dataset_list;
+				}
+				$output .= "To see all of these datasets <a href='$landing_page_url'>visit the eLTER DAR.</a>";
 
 			}
 			else {
