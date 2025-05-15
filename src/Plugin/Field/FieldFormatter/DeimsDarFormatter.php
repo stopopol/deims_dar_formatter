@@ -91,6 +91,7 @@ class DeimsDarFormatter extends FormatterBase {
 				$output = "There is a total of " . $data["hits"]["total"] . " datasets for this site available on the eLTER Digital Asset Register (DAR)";
 				$output .= "<a href='$landing_page_url'>Click here to get an overview of these datasets.</a><br>";
 
+				}
 			}
 			else {
 				// need to return empty array for Drupal to realise the field is empty without throwing an error
