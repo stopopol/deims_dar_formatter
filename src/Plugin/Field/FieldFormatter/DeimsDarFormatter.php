@@ -88,11 +88,11 @@ class DeimsDarFormatter extends FormatterBase {
 				
 				$dataset_list .= "</ul>";
 				
-				if ($data["hits"]["total"] = 1) {
-					$output = "There is one dataset for this site available in the eLTER Digital Asset Register (DAR).";
+				if ($data["hits"]["total"] == 1) {
+					$output = "There is one dataset for this site available on the eLTER Digital Asset Register (DAR).";
 				}
 				else {
-					$output = "There is a total of " . $data["hits"]["total"] . " datasets for this site available in the eLTER Digital Asset Register (DAR).";
+					$output = "There is a total of " . $data["hits"]["total"] . " datasets for this site available on the eLTER Digital Asset Register (DAR).";
 				}
 				
 				if ($count>0) {
@@ -101,7 +101,7 @@ class DeimsDarFormatter extends FormatterBase {
 					} 
 					$output .= $dataset_list;
 				}
-				$output .= "To see more <a href='$landing_page_url'>visit the eLTER DAR.</a>";
+				$output .= "To see all of these datasets <a href='$landing_page_url'>visit the eLTER DAR.</a>";
 
 			}
 			else {
