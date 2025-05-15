@@ -101,7 +101,7 @@ class DeimsDarFormatter extends FormatterBase {
 					} 
 					$output .= $dataset_list;
 				}
-				$output .= "To see all of these datasets <a href='$landing_page_url'>visit the eLTER DAR.</a>";
+				$output .= "To see more <a href='$landing_page_url'>visit the eLTER DAR.</a>";
 
 			}
 			else {
