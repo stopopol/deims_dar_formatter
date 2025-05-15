@@ -89,7 +89,7 @@ class DeimsDarFormatter extends FormatterBase {
 				$dataset_list .= "</ul>";
 				
 				if ($data["hits"]["total"] == 1) {
-					$output = "There is one dataset for this site available on the eLTER Digital Asset Register (DAR).";
+					$output = "There is one dataset for this site available on the eLTER Digital Asset Register (DAR):";
 				}
 				else {
 					$output = "There is a total of " . $data["hits"]["total"] . " datasets for this site available on the eLTER Digital Asset Register (DAR).";
@@ -97,7 +97,7 @@ class DeimsDarFormatter extends FormatterBase {
 				
 				if ($count>0) {
 					if ($count>1) {
-						$output .= " The latest ones include: ";
+						$output .= " The latest ones include:";
 					} 
 					$output .= $dataset_list;
 				}
