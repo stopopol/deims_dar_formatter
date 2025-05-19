@@ -96,7 +96,7 @@ class DeimsDarFormatter extends FormatterBase {
 				}
 				
 				if ($count>0) {
-					if ($count>1) {
+					if ($data["hits"]["total"]>5) {
 						$output .= " The latest ones include:";
 					} 
 					$output .= $dataset_list;
